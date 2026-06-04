@@ -1,0 +1,22 @@
+name: Deploy to Fly.io
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          APP_MODE: ${{ secrets.APP_MODE }}
+          MIN_SCHEDULER_INTERVAL: ${{ secrets.MIN_SCHEDULER_INTERVAL }}
+          MAX_SCHEDULER_DURATION_MINUTES: ${{ secrets.MAX_SCHEDULER_DURATION_MINUTES }}
+          TIMEZONE_OFFSET: ${{ secrets.TIMEZONE_OFFSET }}
+          DEMO_CHANNEL_FR: ${{ secrets.DEMO_CHANNEL_FR }}
+          DEMO_CHANNEL_EN: ${{ secrets.DEMO_CHANNEL_EN }}
+          CONTACT_URL: ${{ secrets.CONTACT_URL }}
