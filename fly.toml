@@ -1,0 +1,15 @@
+app = "my-telegram-bot--wdpqa"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+  BOT_TOKEN = ""
+  OWNER_ID = ""
+  APP_MODE = "personal"
+  MIN_SCHEDULER_INTERVAL = "10"
+  MAX_SCHEDULER_DURATION_MINUTES = "1440"
+  TIMEZONE_OFFSET = "+03:00"
+  DEMO_CHANNEL_FR = "https://t.me/DevSculptChannel"
+  DEMO_CHANNEL_EN = "https://t.me/DevSculptChannel"
+  CONTACT_URL = "https://t.me/DevSculpt"
