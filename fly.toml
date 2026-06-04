@@ -13,3 +13,5 @@ processes = []
   DEMO_CHANNEL_FR = "https://t.me/DevSculptChannel"
   DEMO_CHANNEL_EN = "https://t.me/DevSculptChannel"
   CONTACT_URL = "https://t.me/DevSculpt"
+[build]
+  dockerfile = "Dockerfile"
