@@ -1,0 +1,11 @@
+import os
+
+TOKEN = os.getenv("BOT_TOKEN", "8980163228:AAETul9zMFz7IGyjyolq70wssjKIK4T8acg")
+OWNER_ID = int(os.getenv("OWNER_ID", "8253097679"))
+APP_MODE = os.getenv("APP_MODE", "personal")
+MIN_SCHEDULER_INTERVAL = int(os.getenv("MIN_SCHEDULER_INTERVAL", "10"))
+MAX_SCHEDULER_DURATION_MINUTES = int(os.getenv("MAX_SCHEDULER_DURATION_MINUTES", "1440"))
+TIMEZONE_OFFSET = os.getenv("TIMEZONE_OFFSET", "+03:00")
+TRIAL_DAYS = 1  # Durée de l'essai en jours (modifiable)
+MAX_GROUP_NAME_LENGTH = 25
+MAX_MESSAGE_PREVIEW_LENGTH = 45 
