@@ -10,8 +10,7 @@ from menu.display_utils import display_message, estimate_width, pad_to_width
 
 async def show_main(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Affiche le menu principal (réservé au client propriétaire)."""
-    
-    # Seul le client (OWNER_ID) peut voir ce menu
+
     if update.effective_user.id != OWNER_ID:
         return
 
@@ -34,15 +33,12 @@ async def show_main(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         else:
             end_date_str = end_date.strftime("%m/%d/%Y")
 
-        activation_text = t("trial_started", lang, days=TRIAL_DAYS, end_date=end_date_str)
-        if update.message:
-            await update.message.reply_text(activation_text)
-        else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=activation_text)
-
-    # Texte du menu
-    if first_start:
-        texte = t("menu_prompt", lang)
+        # Texte combiné : activation + prompt
+        texte = (
+            t("trial_started", lang, days=TRIAL_DAYS, end_date=end_date_str)
+            + "\n\n"
+            + t("menu_prompt", lang)
+        )
     else:
         texte = t("main_menu_welcome", lang)
 
