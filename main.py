@@ -93,8 +93,9 @@ from menu.groups.antispam import show_antispam_config
 from menu.scheduler.show_scheduler_main import show_scheduler_main
 from menu.reminders.show_reminder_main import show_reminder_main
 from menu.reminders.show_reminder_enter_mode import show_reminder_enter_mode
-
 from utils import retour
+
+from keep_alive import start_keep_alive
 
 
 async def post_init(application: Application) -> None:
@@ -339,6 +340,11 @@ def main() -> None:
         MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_input, block=False),
         group=1,
     )
+
+
+    #     Lancement du requette http
+    # =================================================
+    start_keep_alive()
 
     # ==================================================================
     # Lancement
