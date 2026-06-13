@@ -56,8 +56,8 @@ async def show_antispam_config(update: Update, context: ContextTypes.DEFAULT_TYP
         padded_repeated = pad_to_width(base_repeated, target_base)
 
         # 3. Ajouter l'indicateur ON/OFF
-        label_links = f"{padded_links} : {'  ON' if block_links else 'OFF'}"
-        label_repeated = f"{padded_repeated} : {'  ON' if block_repeated else 'OFF'}"
+        label_links = f"{padded_links} : {' ON' if block_links else 'OFF'}"
+        label_repeated = f"{padded_repeated} : {' ON' if block_repeated else 'OFF'}"
 
         # 4. Alignement final des deux boutons (largeur totale identique)
         full_labels = [label_links, label_repeated]
