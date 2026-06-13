@@ -44,27 +44,28 @@ async def show_antispam_config(update: Update, context: ContextTypes.DEFAULT_TYP
     boutons = []
 
     if enabled:
-        # 1. Textes de base (sans l'indicateur ON/OFF)
+        # 1. Textes de base (sans indicateur ON/OFF)
         base_links = t("antispam_block_links", lang)
         base_repeated = t("antispam_block_repeated", lang)
 
-        # 2. Largeur maximale des textes de base
+        # 2. Padder les textes de base à la même largeur
         bases = [base_links, base_repeated]
         widths_base = [estimate_width(b) for b in bases]
         target_base = max(widths_base) if widths_base else 0
         padded_links = pad_to_width(base_links, target_base)
         padded_repeated = pad_to_width(base_repeated, target_base)
 
-        # 3. Ajouter l'indicateur ON/OFF
-        label_links = f"{padded_links} : {'  ON' if block_links else 'OFF'}"
-        label_repeated = f"{padded_repeated} : {'  ON' if block_repeated else 'OFF'}"
+        # 3. Padder les indicateurs ON/OFF pour qu'ils aient la même largeur
+        on_text =  "ON"
+        off_text = "OFF"
+        indicator_widths = [estimate_width(on_text), estimate_width(off_text)]
+        target_indicator = max(indicator_widths) if indicator_widths else 0
+        padded_on = pad_to_width(on_text, target_indicator)
+        padded_off = pad_to_width(off_text, target_indicator)
 
-        # 4. Alignement final des deux boutons (largeur totale identique)
-        full_labels = [label_links, label_repeated]
-        widths_full = [estimate_width(l) for l in full_labels]
-        target_full = max(widths_full) if widths_full else 0
-        label_links = pad_to_width(label_links, target_full)
-        label_repeated = pad_to_width(label_repeated, target_full)
+        # 4. Construire les labels complets
+        label_links = f"{padded_links} : {padded_on if block_links else padded_off}"
+        label_repeated = f"{padded_repeated} : {padded_on if block_repeated else padded_off}"
 
         boutons.append([InlineKeyboardButton(label_links, callback_data="antispam:block_links")])
         boutons.append([InlineKeyboardButton(label_repeated, callback_data="antispam:block_repeated")])
