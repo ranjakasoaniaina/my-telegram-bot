@@ -44,18 +44,30 @@ async def show_antispam_config(update: Update, context: ContextTypes.DEFAULT_TYP
     boutons = []
 
     if enabled:
-        # Libellés avec état ON/OFF
-        labels = [
-            f"{t('antispam_block_links', lang)} : {'ON' if block_links else 'OFF'}",
-            f"{t('antispam_block_repeated', lang)} : {'ON' if block_repeated else 'OFF'}"
-        ]
-        # Alignement des deux boutons de blocage
-        widths = [estimate_width(l) for l in labels]
-        target = max(widths) if widths else 0
-        padded = [pad_to_width(l, target) for l in labels]
+        # 1. Textes de base (sans l'indicateur ON/OFF)
+        base_links = t("antispam_block_links", lang)
+        base_repeated = t("antispam_block_repeated", lang)
 
-        boutons.append([InlineKeyboardButton(padded[0], callback_data="antispam:block_links")])
-        boutons.append([InlineKeyboardButton(padded[1], callback_data="antispam:block_repeated")])
+        # 2. Largeur maximale des textes de base
+        bases = [base_links, base_repeated]
+        widths_base = [estimate_width(b) for b in bases]
+        target_base = max(widths_base) if widths_base else 0
+        padded_links = pad_to_width(base_links, target_base)
+        padded_repeated = pad_to_width(base_repeated, target_base)
+
+        # 3. Ajouter l'indicateur ON/OFF
+        label_links = f"{padded_links} : {'ON' if block_links else 'OFF'}"
+        label_repeated = f"{padded_repeated} : {'ON' if block_repeated else 'OFF'}"
+
+        # 4. Alignement final des deux boutons (largeur totale identique)
+        full_labels = [label_links, label_repeated]
+        widths_full = [estimate_width(l) for l in full_labels]
+        target_full = max(widths_full) if widths_full else 0
+        label_links = pad_to_width(label_links, target_full)
+        label_repeated = pad_to_width(label_repeated, target_full)
+
+        boutons.append([InlineKeyboardButton(label_links, callback_data="antispam:block_links")])
+        boutons.append([InlineKeyboardButton(label_repeated, callback_data="antispam:block_repeated")])
         boutons.append([
             InlineKeyboardButton(t("deactivate", lang), callback_data="antispam:toggle"),
             InlineKeyboardButton(t("back", lang), callback_data="nav:back")
